@@ -22,15 +22,12 @@ static의 사용 경우
 *  => ∴ 핸들은 운영체제 리소스를 안전하게 관리하기 위해서 포인터 대신 접근할 수 있는 개념       *
 \***********************************************************************************************/
 
-ScreenManager::ScreenManager() : SingletonBase()
-{
-    std::cout << "ScreenManager instance was created." << std::endl;
-}
+ScreenManager::ScreenManager() : SingletonBase() { }
 
-ScreenManager::~ScreenManager() { }
+ScreenManager::~ScreenManager() { mInstance = nullptr; }
 
 // 스크린 초기화(초기 설정)
-void ScreenManager::screenInit()
+void ScreenManager::InitScreen()
 {
     system("Test2048");             // 콘솔창 이름 설정
     system("mode con cols=100 lines=50");       // cols(가로), line(세로)
@@ -53,7 +50,7 @@ void ScreenManager::screenInit()
 }
 
 // 버퍼 스왑(전환)
-void ScreenManager::screenFlipping()
+void ScreenManager::FlipScreen()
 {
     // 전달받은 버퍼를 화면에 출력
     SetConsoleActiveScreenBuffer(mScreen[mScreenIndex]);
@@ -63,19 +60,19 @@ void ScreenManager::screenFlipping()
 }
 
 // 스크린 클리어
-void ScreenManager::screenClear()
+void ScreenManager::ClearScreen()
 {
     // COORD는 좌표값을 저장할 수 있는 구조체
-    COORD Coor = { 0,0 };
+    COORD coordinate = { 0, 0 };
     // dw값은 버퍼에 실제 기록된 문자수를 받는 변수 포인터
     DWORD dw;
-    // 버퍼에, (공백)을 채운다, 80*25 만큼, (0, 0)(Coor)부터 시작하여
-    FillConsoleOutputCharacter(mScreen[mScreenIndex], ' ', 123 * 33, Coor, &dw);
+    // 버퍼에, (공백)을 채운다, 80*25 만큼, (0, 0)(coordinate)부터 시작하여
+    FillConsoleOutputCharacter(mScreen[mScreenIndex], ' ', 100 * 50, coordinate, &dw);
 
 }
 
 // 화면 해제
-void ScreenManager::screenRelease()
+void ScreenManager::ReleaseScreen()
 {
     /* 핸들 누수에 관하여
     * 1. 핸들 누수는 사용하지 않는 핸들을 놓아주지 않을 때 발생
@@ -90,7 +87,7 @@ void ScreenManager::screenRelease()
 }
 
 // 설정한 좌표에 string을 출력
-void ScreenManager::screenPrint(int x, int y, char* string)
+void ScreenManager::PrintScreen(int x, int y, char* string)
 {
     // dw값은 버퍼에 실제 기록된 문자수를 받는 변수 포인터
     DWORD dw;
@@ -107,7 +104,7 @@ void ScreenManager::screenPrint(int x, int y, char* string)
 }
 
 // 색상 설정
-void ScreenManager::setColor(unsigned short color)
+void ScreenManager::SetColor(unsigned short color)
 {
     // 버퍼 지정, 색상 설정
     SetConsoleTextAttribute(mScreen[mScreenIndex], color);

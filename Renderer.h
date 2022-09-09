@@ -1,5 +1,10 @@
 #pragma once
 
-#include <iostream>
+#include "SingletonBase.h"
 
-void titleRenderer();
+class Renderer : public SingletonBase<Renderer>
+{
+public:
+	void RenderingTitle();
+	void RenderingFrame();
+};

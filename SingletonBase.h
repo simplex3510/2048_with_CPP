@@ -9,13 +9,16 @@ template <typename T>
 class SingletonBase abstract
 {
 public:
-	SingletonBase<T>();
-
 	static T* getInstance();
 	static void delInstance();
 
-private:
+protected:
 	static T* mInstance;
+
+	SingletonBase<T>();
+
+private:
+
 };
 
 

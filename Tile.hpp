@@ -2,26 +2,48 @@
 
 #include <SDL.h>
 
-#define MAP_SIZE 4
+enum class eTileValue : unsigned int
+{
+	Tile0 = 0,
+	Tile2,
+	Tile4,
+	Tile8,
+	Tile16,
+	Tile32,
+	Tile64,
+	Tile128,
+	Tile256,
+	Tile512,
+	Tile1024,
+	Tile2048
+};
 
 class Tile
 {
 public:
-	SDL_Texture* tileTexture;
-	SDL_Rect srcRect, destRect;
-
 	Tile();
-	Tile(const char* textureSheet);
 	~Tile();
 
-	virtual void DrawTile();
-	int  getValue();
-	void setValue(int value);
+	void LoadTile();
+	void DrawTile(int value);
 
-protected:
-	int value;
+	SDL_Texture* texture;
+	SDL_Rect srcRect, destRect;
 
-	int xPos;
-	int yPos;
+private:
+	int xPos, yPos;
 
+	SDL_Texture* tile0;
+	SDL_Texture* tile2;
+	SDL_Texture* tile4;
+	SDL_Texture* tile8;
+	SDL_Texture* tile16;
+	SDL_Texture* tile32;
+	SDL_Texture* tile64;
+	SDL_Texture* tile128;
+	SDL_Texture* tile256;
+	SDL_Texture* tile512;
+	SDL_Texture* tile1024;
+	SDL_Texture* tile2048;
 };
+

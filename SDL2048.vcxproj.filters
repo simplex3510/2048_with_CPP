@@ -13,63 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\Manager">
+      <UniqueIdentifier>{ec47b511-cb22-4a3e-85d2-ebcd3b5b545b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\GameObject">
+      <UniqueIdentifier>{8559c4d3-4b19-4cdc-9675-dd0a38a3fe2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Tile">
+      <UniqueIdentifier>{f82c0c90-2fe4-4b62-8077-ca3f3153fc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager">
+      <UniqueIdentifier>{c934fa92-8b97-4bc2-8ae2-6aa37f148cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObject">
+      <UniqueIdentifier>{c1a1d989-e93a-4d15-a122-3c2d9044464b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tile">
+      <UniqueIdentifier>{76b00fb5-23e6-433a-9ffb-74dfd67a2b92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TestMain.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Backgound.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>소스 파일\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="BaseTile.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="TileMatrix.cpp">
+      <Filter>소스 파일\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="NumTile.cpp">
+    <ClCompile Include="GameLogic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WindowManager.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SingletonBase.hpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.hpp">
+      <Filter>헤더 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.hpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.hpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Background.hpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMatrix.hpp">
+      <Filter>헤더 파일\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Tile.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseTile.hpp">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="NumTile.hpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

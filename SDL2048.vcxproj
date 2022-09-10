@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\SMU\External Librarys\SDL2-2.24.0\include;D:\SMU\External Librarys\SDL2_image-2.6.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\SMU\External Librarys\SDL2-2.24.0\lib\x64;D:\SMU\External Librarys\SDL2_image-2.6.2\lib\x64\optional;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\SMU\External Librarys\SDL2-2.24.0\include;D:\SMU\External Librarys\SDL2_image-2.6.2\include;D:\SMU\External Librarys\SDL2_ttf-2.20.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SMU\External Librarys\SDL2-2.24.0\lib\x64;D:\SMU\External Librarys\SDL2_image-2.6.2\lib\x64\optional;D:\SMU\External Librarys\SDL2_ttf-2.20.1\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,13 +109,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\SMU\External Librarys\SDL2-2.24.0\include;D:\SMU\External Librarys\SDL2_image-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\SMU\External Librarys\SDL2-2.24.0\include;D:\SMU\External Librarys\SDL2_image-2.6.2\include;D:\SMU\External Librarys\SDL2_ttf-2.20.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\SMU\External Librarys\SDL2-2.24.0\lib\x64;D:\SMU\External Librarys\SDL2_image-2.6.2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\SMU\External Librarys\SDL2-2.24.0\lib\x64;D:\SMU\External Librarys\SDL2_image-2.6.2\lib\x64;D:\SMU\External Librarys\SDL2_ttf-2.20.1\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -137,8 +137,10 @@
   <ItemGroup>
     <ClCompile Include="Backgound.cpp" />
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BaseTile.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NumTile.cpp" />
     <ClCompile Include="TestMain.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="WindowManager.cpp" />
@@ -146,7 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.hpp" />
+    <ClInclude Include="BaseTile.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="NumTile.hpp" />
     <ClInclude Include="SingletonBase.hpp" />
     <ClInclude Include="TextureManager.hpp" />
     <ClInclude Include="Tile.hpp" />

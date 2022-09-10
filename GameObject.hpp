@@ -5,7 +5,7 @@
 class GameObject abstract
 {
 public:
-	GameObject(const char* textureSheet, int x, int y);
+	GameObject(const char* textureSheet, int x = 0, int y = 0);
 	~GameObject();
 
 	void Update();

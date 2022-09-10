@@ -1,6 +1,9 @@
-#include "Background.hpp"
-#include "TextureManager.hpp"
 #include "WindowManager.hpp"
+#include "TextureManager.hpp"
+
+#include "Background.hpp"
+#include "BaseTile.hpp"
+#include "NumTile.hpp"
 
 #define BACKGROUND_SIZE 450
 
@@ -9,6 +12,8 @@ using namespace std;
 Background* gameBackground;
 Background* bestBackground;
 Background* scoreBackground;
+
+BaseTile* baseTile;
 
 SDL_Renderer* WindowManager::renderer = nullptr;
 
@@ -60,6 +65,7 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 	gameBackground = new GameBackground("Assets/GameBackground.png", 410, 220, 460, 460);
 	bestBackground = new ScoreBackground("Assets/ScoreBackground.png", 400, 50, 230, 100);
 	scoreBackground = new ScoreBackground("Assets/ScoreBackground.png", 650, 50, 230, 100);
+	baseTile = new BaseTile("Assets/TileBase.png");
 }
 
 void WindowManager::HandleEvent()
@@ -85,9 +91,13 @@ void WindowManager::Update()
 void WindowManager::Render()
 {
 	SDL_RenderClear(renderer);
+	
 	gameBackground->Render();
 	bestBackground->Render();
 	scoreBackground->Render();
+
+	baseTile->DrawTile();
+
 	SDL_RenderPresent(renderer);
 
 }

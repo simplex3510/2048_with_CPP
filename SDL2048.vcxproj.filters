@@ -39,6 +39,12 @@
     <ClCompile Include="Tile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="BaseTile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="NumTile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowManager.hpp">
@@ -57,6 +63,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Tile.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseTile.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="NumTile.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,6 +10,8 @@
 class WindowManager : public SingletonBase<WindowManager>
 {
 public:
+	static SDL_Renderer* renderer;
+	
 	WindowManager();
 	~WindowManager();
 
@@ -25,5 +27,4 @@ public:
 private:
 	bool isRunning;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 };

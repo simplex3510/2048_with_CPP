@@ -1,3 +1,4 @@
+#include "Background.hpp"
 #include "TextureManager.hpp"
 #include "WindowManager.hpp"
 
@@ -5,8 +6,11 @@
 
 using namespace std;
 
-SDL_Texture* backgroundTexture;
-SDL_Rect srcRect, destRect;
+Background* gameBackground;
+Background* bestBackground;
+Background* scoreBackground;
+
+SDL_Renderer* WindowManager::renderer = nullptr;
 
 WindowManager::WindowManager()
 {
@@ -53,10 +57,9 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 		throw exception("Initialize Failed");
 	}
 
-	backgroundTexture = TextureManager::LoadTexture("Assets/Background.png", renderer);
-
-	destRect.w = BACKGROUND_SIZE;
-	destRect.h = BACKGROUND_SIZE;
+	gameBackground = new GameBackground("Assets/GameBackground.png", 410, 220, 460, 460);
+	bestBackground = new ScoreBackground("Assets/ScoreBackground.png", 400, 50, 230, 100);
+	scoreBackground = new ScoreBackground("Assets/ScoreBackground.png", 650, 50, 230, 100);
 }
 
 void WindowManager::HandleEvent()
@@ -76,13 +79,15 @@ void WindowManager::HandleEvent()
 
 void WindowManager::Update()
 {
-
+	gameBackground->Update();
 }
 
 void WindowManager::Render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, backgroundTexture, NULL, &destRect);
+	gameBackground->Render();
+	bestBackground->Render();
+	scoreBackground->Render();
 	SDL_RenderPresent(renderer);
 
 }

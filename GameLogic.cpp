@@ -52,9 +52,7 @@ void gamelogic::Rotate90()
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
 			tileValue[row][column] = newTileValue[row][column];
-			std::cout << (unsigned int)tileValue[row][column];
 		}
-		std::cout << std::endl;
 	}
 }
 
@@ -62,11 +60,93 @@ void gamelogic::Sort()
 {
 	eTileValue newTileValue[MATRIX_SIZE][MATRIX_SIZE];
 
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			newTileValue[row][column] = eTileValue::Tile0;
+		}
+	}
+	// done = true;
 
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		int count = 0;
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			if (tileValue[row][column] != eTileValue::Tile0)
+			{
+				newTileValue[row][count] = tileValue[row][column];
 
+				if (column != count)
+				{
+					// done = false;
+				}
+
+				count++;
+			}
+		}
+	}
+
+	// 정렬 적용
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			tileValue[row][column] = newTileValue[row][column];
+		}
+	}
 }
 
 void gamelogic::Merge()
 {
+	// done = false
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		for (int column = 0; column < MATRIX_SIZE - 1; column++)
+		{
+			if (tileValue[row][column] == tileValue[row][column + 1] && tileValue[row][column] != eTileValue::Tile0)
+			{
+				switch (tileValue[row][column])
+				{
+				case eTileValue::Tile2:
+					tileValue[row][column] = eTileValue::Tile4;
+					break;
+				case eTileValue::Tile4:
+					tileValue[row][column] = eTileValue::Tile8;
+					break;
+				case eTileValue::Tile8:
+					tileValue[row][column] = eTileValue::Tile16;
+					break;
+				case eTileValue::Tile16:
+					tileValue[row][column] = eTileValue::Tile32;
+					break;
+				case eTileValue::Tile32:
+					tileValue[row][column] = eTileValue::Tile64;
+					break;
+				case eTileValue::Tile64:
+					tileValue[row][column] = eTileValue::Tile128;
+					break;
+				case eTileValue::Tile128:
+					tileValue[row][column] = eTileValue::Tile256;
+					break;
+				case eTileValue::Tile256:
+					tileValue[row][column] = eTileValue::Tile512;
+					break;
+				case eTileValue::Tile512:
+					tileValue[row][column] = eTileValue::Tile1024;
+					break;
+				case eTileValue::Tile1024:
+					tileValue[row][column] = eTileValue::Tile2048;
+					break;
+				default:
+					break;
+				}
+				tileValue[row][column+1] = eTileValue::Tile0;
+				totalScore += (unsigned int)tileValue[row][column];
+				// done = true;
+			}
+		}
+	}
 
 }

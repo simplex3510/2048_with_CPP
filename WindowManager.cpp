@@ -101,23 +101,53 @@ void WindowManager::HandleEvent()
 	}
 	else if (event.type == SDL_KEYUP)
 	{
+
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_UP:
 			cout << "KeyUP: Up" << endl;
+			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
+			gamelogic::Sort();
+			gamelogic::Merge();
+			// done
+			gamelogic::Sort();
+			gamelogic::Rotate90();
+
+			gamelogic::CreateTileValue();
 			scoreText->Update();
 			break;
 		case SDLK_DOWN:
 			cout << "KeyUP: Down" << endl;
+			gamelogic::Rotate90();
+			gamelogic::Sort();
+			gamelogic::Merge();
+			// done
+			gamelogic::Sort();
+			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
+
+			gamelogic::CreateTileValue();
 			scoreText->Update();
 			break;
 		case SDLK_LEFT:
 			cout << "KeyUP: Left" << endl;
+			gamelogic::Sort();
+			gamelogic::Merge();
+			// done
+			gamelogic::Sort();
+
+			gamelogic::CreateTileValue();
 			scoreText->Update();
 			break;
 		case SDLK_RIGHT:
 			cout << "KeyUP: Right" << endl;
-			gamelogic::Rotate90();
+			gamelogic::Rotate90(); gamelogic::Rotate90();
+			gamelogic::Sort();
+			gamelogic::Merge();
+			// done
+			gamelogic::Sort();
+			gamelogic::Rotate90(); gamelogic::Rotate90();
+
+			gamelogic::CreateTileValue();
 			scoreText->Update();
 			break;
 		default:

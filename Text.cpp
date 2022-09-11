@@ -1,4 +1,5 @@
 #include "Text.hpp"
+#include "GameLogic.hpp"
 
 Text::Text()
 {
@@ -19,7 +20,7 @@ Text::~Text()
 
 void Text::Update()
 {
-	score += 1000;
+	score += totalScore;
 
 	if (score / 10 == 0)
 	{

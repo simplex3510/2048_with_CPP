@@ -60,6 +60,9 @@
     <ClCompile Include="GameLogic.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>소스 파일\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SingletonBase.hpp">
@@ -82,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="Tile.hpp">
       <Filter>헤더 파일\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogic.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ETileValue.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.hpp">
+      <Filter>헤더 파일\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

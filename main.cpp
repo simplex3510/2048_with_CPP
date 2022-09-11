@@ -3,7 +3,7 @@
 #define WINDOW_WIDTH  1280
 #define WINDOW_HEIGHT 720
 
-#define FPS 60
+#define FPS 30
 #define FRAME_DELAY 1000 / FPS
 
 static WindowManager* windowManager = WindowManager::getInstance();

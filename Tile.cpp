@@ -41,9 +41,9 @@ void Tile::LoadTile()
 	tile2048 = TextureManager::LoadTexture("Assets/Tile2048.png");
 }
 
-void Tile::DrawTile(int value)
+void Tile::DrawTile(eTileValue value)
 {
-	switch ((eTileValue)value)
+	switch (value)
 	{
 	case eTileValue::Tile0:
 		TextureManager::Draw(tile0, srcRect, destRect);

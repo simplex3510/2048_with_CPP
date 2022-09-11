@@ -140,6 +140,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TestMain.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TileMatrix.cpp" />
     <ClCompile Include="WindowManager.cpp" />
@@ -147,8 +148,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.hpp" />
+    <ClInclude Include="ETileValue.hpp" />
+    <ClInclude Include="GameLogic.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="SingletonBase.hpp" />
+    <ClInclude Include="Text.hpp" />
     <ClInclude Include="TextureManager.hpp" />
     <ClInclude Include="TileMatrix.hpp" />
     <ClInclude Include="Tile.hpp" />

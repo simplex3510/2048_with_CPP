@@ -2,21 +2,7 @@
 
 #include <SDL.h>
 
-enum class eTileValue : unsigned int
-{
-	Tile0 = 0,
-	Tile2,
-	Tile4,
-	Tile8,
-	Tile16,
-	Tile32,
-	Tile64,
-	Tile128,
-	Tile256,
-	Tile512,
-	Tile1024,
-	Tile2048
-};
+#include "ETileValue.hpp"
 
 class Tile
 {
@@ -25,7 +11,7 @@ public:
 	~Tile();
 
 	void LoadTile();
-	void DrawTile(int value);
+	void DrawTile(eTileValue value);
 
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;

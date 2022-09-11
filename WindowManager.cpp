@@ -3,18 +3,24 @@
 
 #include "Background.hpp"
 #include "TileMatrix.hpp"
+#include "Text.hpp"
+
+#include "GameLogic.hpp"
 
 #define BACKGROUND_SIZE 450
 
 using namespace std;
 
-Background* gameBackground;
-Background* bestBackground;
-Background* scoreBackground;
+SDL_Renderer* WindowManager::renderer = nullptr;
+
+GameBackground* gameBackground;
+ScoreBackground* bestBackground;
+ScoreBackground* scoreBackground;
 
 TileMatrix* tileMatrix;
 
-SDL_Renderer* WindowManager::renderer = nullptr;
+Text* scoreText;
+Text* bestText;
 
 WindowManager::WindowManager()
 {
@@ -35,7 +41,7 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 		flags = SDL_WINDOW_FULLSCREEN;
 	}
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) == NULL)
+	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		cout << "Systems Initialize" << endl;
 
@@ -61,9 +67,26 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 		throw exception("Initialize Failed");
 	}
 
+	if (TTF_Init() == 0)
+	{
+		scoreText = new Text();
+		bestText = new Text();
+		if (scoreText != nullptr || bestText == nullptr)
+		{
+			cout << "Text Font Setting Complete" << endl;
+		}
+	}
+	else    // 초기화 실패 시
+	{
+		isRunning = false;
+		cout << "Initialize Failed" << endl;
+		throw exception("Initialize Failed");
+	}
+
 	gameBackground = new GameBackground("Assets/GameBackground.png", 410, 220, 460, 460);
-	bestBackground = new ScoreBackground("Assets/ScoreBackground.png", 400, 50, 230, 100);
+	bestBackground = new ScoreBackground("Assets/BestBackground.png", 400, 50, 230, 100);
 	scoreBackground = new ScoreBackground("Assets/ScoreBackground.png", 650, 50, 230, 100);
+	
 	tileMatrix = new TileMatrix();
 }
 
@@ -72,19 +95,40 @@ void WindowManager::HandleEvent()
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
-	switch (event.type)
+	if (event.type == SDL_QUIT)
 	{
-	case SDL_QUIT:
 		isRunning = false;
-		break;
-	default:
-		break;
+	}
+	else if (event.type == SDL_KEYUP)
+	{
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_UP:
+			cout << "KeyUP: Up" << endl;
+			scoreText->Update();
+			break;
+		case SDLK_DOWN:
+			cout << "KeyUP: Down" << endl;
+			scoreText->Update();
+			break;
+		case SDLK_LEFT:
+			cout << "KeyUP: Left" << endl;
+			scoreText->Update();
+			break;
+		case SDLK_RIGHT:
+			cout << "KeyUP: Right" << endl;
+			gamelogic::Rotate90();
+			scoreText->Update();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 void WindowManager::Update()
 {
-	gameBackground->Update();
+
 }
 
 void WindowManager::Render()
@@ -95,10 +139,11 @@ void WindowManager::Render()
 	bestBackground->Render();
 	scoreBackground->Render();
 
-	tileMatrix->DrawTile(1);
+	tileMatrix->DrawTile();
+
+	scoreText->Render();
 
 	SDL_RenderPresent(renderer);
-
 }
 
 void WindowManager::Clear()
@@ -106,6 +151,8 @@ void WindowManager::Clear()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+	IMG_Quit();
+	TTF_Quit();
 	cout << "Destroy Window and Renderer" << endl;
 }
 

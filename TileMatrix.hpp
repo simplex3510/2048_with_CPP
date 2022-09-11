@@ -4,7 +4,7 @@
 
 #include "Tile.hpp"
 
-#define MAP_SIZE 4
+#define MATRIX_SIZE 4
 
 class TileMatrix
 {
@@ -13,14 +13,14 @@ public:
 	~TileMatrix();
 
 	void LoadTile();
-	void DrawTile(int value);
+	void DrawTile();
 
 protected:
 	int xPos;
 	int yPos;
 
 private:
-	Tile* tileMatrix[MAP_SIZE][MAP_SIZE];
+	Tile* tileMatrix[MATRIX_SIZE][MATRIX_SIZE];
 
 	SDL_Rect srcRect, destRect;
 };

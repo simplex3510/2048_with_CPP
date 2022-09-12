@@ -15,11 +15,11 @@ void gamelogic::Initialize()
 		}
 	}
 
-	CreateTileValue();
-	CreateTileValue();
+	CreateNewTile();
+	CreateNewTile();
 }
 
-void gamelogic::CreateTileValue()
+void gamelogic::CreateNewTile()
 {
 	srand((unsigned int)time(NULL));
 	unsigned int row = rand() % MATRIX_SIZE;
@@ -37,12 +37,11 @@ void gamelogic::CreateTileValue()
 void gamelogic::Rotate90()
 {
 	eTileValue newTileValue[MATRIX_SIZE][MATRIX_SIZE];
-
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
-		for (int column = 0; column < MATRIX_SIZE; column++)
+		for (int column = 0, newColumn = MATRIX_SIZE - 1; -1 < newColumn; column++, newColumn--)
 		{
-			newTileValue[column][row] = tileValue[row][column];
+			newTileValue[row][column] = tileValue[newColumn][row];
 		}
 	}
 
@@ -59,7 +58,6 @@ void gamelogic::Rotate90()
 void gamelogic::Sort()
 {
 	eTileValue newTileValue[MATRIX_SIZE][MATRIX_SIZE];
-
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
@@ -148,5 +146,17 @@ void gamelogic::Merge()
 			}
 		}
 	}
+}
 
+void gamelogic::PrintTileValueMatrix()
+{
+	std::cout << "收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收收" << std::endl;
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			std::cout << (unsigned int)tileValue[row][column] << "  ";
+		}
+		std::cout << std::endl;
+	}
 }

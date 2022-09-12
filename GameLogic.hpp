@@ -14,9 +14,11 @@ extern eTileValue tileValue[MATRIX_SIZE][MATRIX_SIZE];
 namespace gamelogic
 {
 	void Initialize();
-	void CreateTileValue();
+	void CreateNewTile();
 
 	void Rotate90();
 	void Sort();
 	void Merge();
+
+	void PrintTileValueMatrix();
 }

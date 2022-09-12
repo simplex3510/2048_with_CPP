@@ -113,7 +113,7 @@ void WindowManager::HandleEvent()
 			gamelogic::Sort();
 			gamelogic::Rotate90();
 
-			gamelogic::CreateTileValue();
+			gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		case SDLK_DOWN:
@@ -125,7 +125,7 @@ void WindowManager::HandleEvent()
 			gamelogic::Sort();
 			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
 
-			gamelogic::CreateTileValue();
+			gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		case SDLK_LEFT:
@@ -135,7 +135,7 @@ void WindowManager::HandleEvent()
 			// done
 			gamelogic::Sort();
 
-			gamelogic::CreateTileValue();
+			gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		case SDLK_RIGHT:
@@ -147,7 +147,7 @@ void WindowManager::HandleEvent()
 			gamelogic::Sort();
 			gamelogic::Rotate90(); gamelogic::Rotate90();
 
-			gamelogic::CreateTileValue();
+			gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		default:

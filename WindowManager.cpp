@@ -178,8 +178,8 @@ void WindowManager::Render()
 
 void WindowManager::Clear()
 {
+	//SDL_DestroyRenderer(renderer);	// 왠진 모르겠지만 에러 발생
 	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 	IMG_Quit();
 	TTF_Quit();

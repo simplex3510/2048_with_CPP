@@ -74,6 +74,10 @@
     <IncludePath>D:\SMU\External Librarys\SDL2-2.24.0\include;D:\SMU\External Librarys\SDL2_image-2.6.2\include;D:\SMU\External Librarys\SDL2_ttf-2.20.1\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\SMU\External Librarys\SDL2-2.24.0\lib\x64;D:\SMU\External Librarys\SDL2_image-2.6.2\lib\x64\optional;D:\SMU\External Librarys\SDL2_ttf-2.20.1\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\SMU\External Librarys\SDL2_image-2.6.2\include;D:\SMU\External Librarys\SDL2_ttf-2.20.1\include;D:\SMU\External Librarys\SDL2-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\SMU\External Librarys\SDL2_image-2.6.2\lib\x64;D:\SMU\External Librarys\SDL2_ttf-2.20.1\lib\x64;D:\SMU\External Librarys\SDL2-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -132,6 +136,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "TextureManager.hpp"
 
 #include "Background.hpp"
+#include "EndScreen.hpp"
 #include "TileMatrix.hpp"
 #include "Text.hpp"
 
@@ -16,11 +17,16 @@ SDL_Renderer* WindowManager::renderer = nullptr;
 GameBackground* gameBackground;
 ScoreBackground* bestBackground;
 ScoreBackground* scoreBackground;
+EndScreen* endScreen;
 
 TileMatrix* tileMatrix;
 
 Text* scoreText;
 Text* bestText;
+Text* endText;
+
+bool gameEnd = false;
+bool gameClear = false;
 
 WindowManager::WindowManager()
 {
@@ -69,9 +75,9 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 
 	if (TTF_Init() == 0)
 	{
-		scoreText = new Text();
-		bestText = new Text();
-		if (scoreText != nullptr || bestText == nullptr)
+		bestText = new Text(506, 100);
+		scoreText = new Text(750, 100);
+		if (scoreText != nullptr && bestText != nullptr)
 		{
 			cout << "Text Font Setting Complete" << endl;
 		}
@@ -87,6 +93,8 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 	bestBackground = new ScoreBackground("Assets/BestBackground.png", 400, 50, 230, 100);
 	scoreBackground = new ScoreBackground("Assets/ScoreBackground.png", 650, 50, 230, 100);
 	
+	endScreen = new EndScreen("Assets/EndScreen.png");
+
 	tileMatrix = new TileMatrix();
 }
 
@@ -99,16 +107,19 @@ void WindowManager::HandleEvent()
 	{
 		isRunning = false;
 	}
-	else if (event.type == SDL_KEYUP)
+	else if (event.type == SDL_KEYUP && gameEnd == false)
 	{
-
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_1:
 			cout << "Game Clear" << endl;
+			gameEnd = true;
+			gameClear = true;
 			break;
 		case SDLK_2:
 			cout << "Game Over" << endl;
+			gameEnd = true;
+			gameClear = false;
 			break;
 
 		case SDLK_UP:
@@ -178,7 +189,24 @@ void WindowManager::Render()
 
 	tileMatrix->DrawTile();
 
+	bestText->Render();
 	scoreText->Render();
+
+	if (gameEnd == true)
+	{
+		endScreen->Render();
+
+		if (gameClear == true)
+		{
+			endText = new Text("Game Clear");
+		}
+		else
+		{
+			endText = new Text("GameOver");
+		}
+		
+		endText->Render();
+	}
 
 	SDL_RenderPresent(renderer);
 }

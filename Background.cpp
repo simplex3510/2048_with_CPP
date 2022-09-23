@@ -2,8 +2,8 @@
 
 Background::Background(const char* textureSheet, int xPos, int yPos, int width, int height) : GameObject(textureSheet, xPos, yPos)
 {
-	srcRect.h = GAME_HEIGHT;
 	srcRect.w = GAME_WIDTH;
+	srcRect.h = GAME_HEIGHT;
 
 	srcRect.x = 0;
 	srcRect.y = 0;

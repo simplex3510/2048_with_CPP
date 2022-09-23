@@ -8,7 +8,8 @@
 class Text
 {
 public:
-	Text();
+	Text(int xPos, int yPos);
+	Text(const char* endText);
 	~Text();
 
 	void Update();
@@ -23,4 +24,3 @@ private:
 	TTF_Font* textFont;
 	SDL_Color textFontColor;
 };
-

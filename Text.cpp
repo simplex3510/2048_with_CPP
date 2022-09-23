@@ -1,7 +1,11 @@
 #include "Text.hpp"
 #include "GameLogic.hpp"
 
-Text::Text()
+using namespace std;
+
+// 준행이가 파일 입출력으로 scoreText에 읽어와서 생성자 만들기 + 만,천,백 등 단위 위치 잡기
+
+Text::Text(int xPos, int yPos)
 {
 	scoreText = 0;
 
@@ -10,8 +14,21 @@ Text::Text()
 
 	textTexture = TextureManager::LoadTextTexture(textFont, std::to_string(scoreText).c_str(), &textFontColor, &destRect);
 
-	destRect.x = 750;
-	destRect.y = 100;
+	destRect.x = xPos;
+	destRect.y = yPos;
+}
+
+Text::Text(const char* endText)
+{
+	scoreText = 0;
+
+	textFont = TTF_OpenFont("Assets/Verdana_Bold.ttf", 30);
+	textFontColor = { 255, 255, 255, 255 };
+
+	textTexture = TextureManager::LoadTextTexture(textFont, endText, &textFontColor, &destRect);
+
+	destRect.x = 640;
+	destRect.y = 360;
 }
 
 Text::~Text()

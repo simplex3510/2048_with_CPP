@@ -158,7 +158,7 @@ void WindowManager::HandleEvent()
 
 void WindowManager::Update()
 {
-
+	totalScore = 0;
 }
 
 void WindowManager::Render()

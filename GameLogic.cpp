@@ -3,7 +3,6 @@
 using namespace gamelogic;
 
 int totalScore = 0;
-int numb = 0;
 eTileValue tileValue[MATRIX_SIZE][MATRIX_SIZE];
 
 void gamelogic::Initialize()
@@ -110,50 +109,39 @@ void gamelogic::Merge()
 				{
 				case eTileValue::Tile2:
 					tileValue[row][column] = eTileValue::Tile4;
-					numb = 4;
 					break;
 				case eTileValue::Tile4:
 					tileValue[row][column] = eTileValue::Tile8;
-					numb = 8;
 					break;
 				case eTileValue::Tile8:
 					tileValue[row][column] = eTileValue::Tile16;
-					numb = 16;
 					break;
 				case eTileValue::Tile16:
 					tileValue[row][column] = eTileValue::Tile32;
-					numb = 32;
 					break;
 				case eTileValue::Tile32:
 					tileValue[row][column] = eTileValue::Tile64;
-					numb = 64;
 					break;
 				case eTileValue::Tile64:
 					tileValue[row][column] = eTileValue::Tile128;
-					numb = 128;
 					break;
 				case eTileValue::Tile128:
 					tileValue[row][column] = eTileValue::Tile256;
-					numb = 256;
 					break;
 				case eTileValue::Tile256:
 					tileValue[row][column] = eTileValue::Tile512;
-					numb = 512;
 					break;
 				case eTileValue::Tile512:
 					tileValue[row][column] = eTileValue::Tile1024;
-					numb = 1024;
 					break;
 				case eTileValue::Tile1024:
 					tileValue[row][column] = eTileValue::Tile2048;
-					numb = 2048;
 					break;
 				default:
-					numb = 0;
 					break;
 				}
 				tileValue[row][column+1] = eTileValue::Tile0;
-				totalScore += numb;
+				totalScore += (unsigned int)tileValue[row][column];
 				// done = true;
 			}
 		}

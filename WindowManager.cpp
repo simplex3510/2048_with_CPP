@@ -104,6 +104,13 @@ void WindowManager::HandleEvent()
 
 		switch (event.key.keysym.sym)
 		{
+		case SDLK_1:
+			cout << "Game Clear" << endl;
+			break;
+		case SDLK_2:
+			cout << "Game Over" << endl;
+			break;
+
 		case SDLK_UP:
 			cout << "KeyUP: Up" << endl;
 			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
@@ -158,7 +165,7 @@ void WindowManager::HandleEvent()
 
 void WindowManager::Update()
 {
-	totalScore = 0;
+
 }
 
 void WindowManager::Render()

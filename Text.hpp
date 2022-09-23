@@ -15,7 +15,7 @@ public:
 	void Render();
 
 private:
-	int score;
+	int scoreText;
 
 	SDL_Texture* textTexture;
 	SDL_Rect destRect;

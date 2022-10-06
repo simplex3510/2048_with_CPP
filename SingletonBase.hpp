@@ -28,13 +28,13 @@ template <typename T>
 T* SingletonBase<T>::instance = nullptr;
 
 template <typename T>
-inline SingletonBase<T>::SingletonBase() { }
+SingletonBase<T>::SingletonBase() { }
 
 template<typename T>
-inline SingletonBase<T>::~SingletonBase() { instance = nullptr; }
+SingletonBase<T>::~SingletonBase() { instance = nullptr; }
 
 template <typename T>
-inline T* SingletonBase<T>::getInstance()
+T* SingletonBase<T>::getInstance()
 {
 	if (instance == nullptr)
 	{

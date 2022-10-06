@@ -68,54 +68,11 @@ int gamelogic::Sort()
 	}
 	// done = true;
 
-	std::cout << "\nbefore sort\n";
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
 		int count = 0;
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			int num = 0;
-			switch (tileValue[row][column]) {
-			case eTileValue::Tile0:
-				num = 0;
-				break;
-			case eTileValue::Tile2:
-				num = 2;
-				break;
-			case eTileValue::Tile4:
-				num = 4;
-				break;
-			case eTileValue::Tile8 :
-				num = 8;
-				break;
-			case eTileValue::Tile16:
-				num = 16;
-				break;
-			case eTileValue::Tile32:
-				num = 32;
-				break;
-			case eTileValue::Tile64:
-				num = 64;
-				break;
-			case eTileValue::Tile128 :
-				num = 128;
-				break;
-			case eTileValue::Tile256:
-				num = 256;
-				break;
-			case eTileValue::Tile512:
-				num = 512;
-				break;
-			case eTileValue::Tile1024:
-				num = 1024;
-				break;
-			case eTileValue::Tile2048:
-				num = 2048;
-				break;
-			default :
-				num = -1;
-			}
-			std::cout << num << "\t";
 
 			if (tileValue[row][column] != eTileValue::Tile0)
 			{
@@ -129,11 +86,9 @@ int gamelogic::Sort()
 				count++;
 			}
 		}
-		std::cout << "\n";
 	}
 
 	// 정렬 적용
-	std::cout << "\nafter sort\n";
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
@@ -142,53 +97,8 @@ int gamelogic::Sort()
 				tileValue[row][column] = newTileValue[row][column];
 				movedCnt++;
 			}
-
-			int num = 0;
-			switch (tileValue[row][column]) {
-			case eTileValue::Tile0:
-				num = 0;
-				break;
-			case eTileValue::Tile2:
-				num = 2;
-				break;
-			case eTileValue::Tile4:
-				num = 4;
-				break;
-			case eTileValue::Tile8:
-				num = 8;
-				break;
-			case eTileValue::Tile16:
-				num = 16;
-				break;
-			case eTileValue::Tile32:
-				num = 32;
-				break;
-			case eTileValue::Tile64:
-				num = 64;
-				break;
-			case eTileValue::Tile128:
-				num = 128;
-				break;
-			case eTileValue::Tile256:
-				num = 256;
-				break;
-			case eTileValue::Tile512:
-				num = 512;
-				break;
-			case eTileValue::Tile1024:
-				num = 1024;
-				break;
-			case eTileValue::Tile2048:
-				num = 2048;
-				break;
-			default:
-				num = -1;
-			}
-			std::cout << num << "\t";
 		}
-		std::cout << "\n";
 	}
-	std::cout << "\nsort() movedCnt: " << movedCnt << std::endl;
 
 	return movedCnt;
 }

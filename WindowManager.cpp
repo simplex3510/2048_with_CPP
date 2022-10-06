@@ -28,6 +28,8 @@ Text* endText;
 bool gameEnd = false;
 bool gameClear = false;
 
+int mergedTile = 0;	// GameLogic::Merge에서 반환값을 받음. 머지 여부 및 2048 타일 생성 확인에 사용.
+
 WindowManager::WindowManager()
 {
 
@@ -103,6 +105,8 @@ void WindowManager::HandleEvent()
 	SDL_Event event;
 	SDL_PollEvent(&event);
 
+	int movedCnt = 0;	// 타일 이동 횟수와 머지 횟수 (합쳐질 때 다시 정렬할 필요가 없는 경우도 있어서 머지 횟수도 따로 더해줌)
+
 	if (event.type == SDL_QUIT)
 	{
 		isRunning = false;
@@ -125,47 +129,55 @@ void WindowManager::HandleEvent()
 		case SDLK_UP:
 			cout << "KeyUP: Up" << endl;
 			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
-			gamelogic::Sort();
-			gamelogic::Merge();
+			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
+			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
+			movedCnt += mergedTile;			// merge도 이동에 포함
 			// done
-			gamelogic::Sort();
+			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 			gamelogic::Rotate90();
 
-			gamelogic::CreateNewTile();
+			if (movedCnt)
+				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		case SDLK_DOWN:
 			cout << "KeyUP: Down" << endl;
 			gamelogic::Rotate90();
-			gamelogic::Sort();
-			gamelogic::Merge();
+			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
+			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
+			movedCnt += mergedTile;			// merge도 이동에 포함
 			// done
-			gamelogic::Sort();
+			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
 
-			gamelogic::CreateNewTile();
+			if (movedCnt)
+				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		case SDLK_LEFT:
 			cout << "KeyUP: Left" << endl;
-			gamelogic::Sort();
-			gamelogic::Merge();
+			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
+			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
+			movedCnt += mergedTile;			// merge도 이동에 포함
 			// done
-			gamelogic::Sort();
+			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 
-			gamelogic::CreateNewTile();
+			if (movedCnt)
+				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		case SDLK_RIGHT:
 			cout << "KeyUP: Right" << endl;
 			gamelogic::Rotate90(); gamelogic::Rotate90();
-			gamelogic::Sort();
-			gamelogic::Merge();
+			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
+			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
+			movedCnt += mergedTile;			// merge도 이동에 포함
 			// done
-			gamelogic::Sort();
+			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 			gamelogic::Rotate90(); gamelogic::Rotate90();
 
-			gamelogic::CreateNewTile();
+			if (movedCnt)
+				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
 		default:
@@ -176,7 +188,12 @@ void WindowManager::HandleEvent()
 
 void WindowManager::Update()
 {
-
+	// 승패 판정
+	if (mergedTile == 2048 && gameEnd == false) {
+		cout << "Game Clear" << endl;
+		gameEnd = true;
+		gameClear = true;
+	}
 }
 
 void WindowManager::Render()

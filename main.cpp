@@ -19,8 +19,8 @@ int main(int argc, char* argv[])
 	{
 		frameStart = SDL_GetTicks();
 
-		windowManager->HandleEvent();
-		windowManager->Update();
+		windowManager->HandleEvent();	// 키보드 입력
+		windowManager->Update();		// 승패 판정
 		windowManager->Render();
 	
 		frameTime = SDL_GetTicks() - frameStart;

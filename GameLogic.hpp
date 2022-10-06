@@ -17,8 +17,8 @@ namespace gamelogic
 	void CreateNewTile();
 
 	void Rotate90();
-	void Sort();
-	void Merge();
+	int Sort();
+	int Merge();
 
 	void PrintTileValueMatrix();
 }

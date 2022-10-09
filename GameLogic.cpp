@@ -5,6 +5,10 @@ using namespace gamelogic;
 int totalScore = 0;
 eTileValue tileValue[MATRIX_SIZE][MATRIX_SIZE];
 
+int tileValueCnt = 0; //현재 몇개의 타일에 값이 있는지(=타일이 가득 찼는지) 확인. 게임오버 여부 체크에 사용.
+int isMergedCnt = 0; //머지 할 수 있는 타일이 있는지 여부 확인. 게임오버 여부 체크에 사용.
+
+
 void gamelogic::Initialize()
 {
 	for (int row = 0; row < MATRIX_SIZE; row++)
@@ -63,7 +67,7 @@ int gamelogic::Sort()
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			newTileValue[row][column] = eTileValue::Tile0;
+			newTileValue[row][column] = eTileValue::Tile0; 
 		}
 	}
 	// done = true;
@@ -173,5 +177,49 @@ void gamelogic::PrintTileValueMatrix()
 			std::cout << (unsigned int)tileValue[row][column] << "  ";
 		}
 		std::cout << std::endl;
+	}
+}
+
+bool gamelogic::CheckGameOver()
+{
+	tileValueCnt = 0; 
+	isMergedCnt = 0;
+
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			if (tileValue[row][column] != eTileValue::Tile0) //타일 안에 0이 아닌 값이 있으면(= 비어있지 않으면) 카운트 늘려주기 
+			{
+				tileValueCnt++; 
+			}
+
+			//만약 현재 요소와 바로 오른쪽에 있는 요소가 머지 가능하다면 카운트 늘려주기
+			//단. 현재 요소가 맨 오른쪽 줄이라면 비교 하지 않게 하기
+			if (tileValue[row][column] == tileValue[row][column + 1] && column + 1 < MATRIX_SIZE)
+			{
+				isMergedCnt++;
+			}
+			//만약 현재 요소와 바로 아래에 있는 요소가 머지 가능하다면 카운트 늘려주기
+			//단. 현재 요소가 맨 아랫줄이라면 비교 하지 않게 하기
+			if (tileValue[row][column] == tileValue[row + 1][column] && row+1<MATRIX_SIZE)
+			{
+				isMergedCnt++;
+			}
+		}
+	}
+	/* 매 프레임마다 0이 아닌 값이 들어있는 타일 갯수와 머지 가능한 횟수 출력.
+	std::cout << "tileValueCnt: " << tileValueCnt << std::endl; //16 (=타일 꽉 찬 상태) 이고
+	std::cout << "isMergedCnt: " << isMergedCnt << std::endl;  //0 (=머지 할 수 없음) 으로 출력되면 게임오버. 
+	*/
+
+	if (tileValueCnt == MATRIX_SIZE * MATRIX_SIZE&& isMergedCnt == 0) //타일이 꽉 찼고, 머지할 수 있는 요소도 없으면
+	{
+
+		return true; //게임 오버
+	}
+	else //아니면
+	{
+		return false; //계속 진행 
 	}
 }

@@ -107,20 +107,20 @@ void WindowManager::HandleEvent()
 
 	int movedCnt = 0;	// 타일 이동 횟수와 머지 횟수 (합쳐질 때 다시 정렬할 필요가 없는 경우도 있어서 머지 횟수도 따로 더해줌)
 
-	if (event.type == SDL_QUIT)
+	if (event.type == SDL_QUIT) //윈도우창 닫으면 SDL_QUIT 이벤트 발생
 	{
 		isRunning = false;
 	}
 	else if (event.type == SDL_KEYUP && gameEnd == false)
 	{
 		switch (event.key.keysym.sym)
-		{
-		case SDLK_1:
+		{//임의의 키 눌렀을 시 승리/패배 이벤트 발생. 실제 게임에서 이벤트 발생시키는 코드는 update에 있음
+		case SDLK_1: //1키 입력시 게임 클리어
 			cout << "Game Clear" << endl;
 			gameEnd = true;
 			gameClear = true;
 			break;
-		case SDLK_2:
+		case SDLK_2: //2키 입력시 게임 오버 
 			cout << "Game Over" << endl;
 			gameEnd = true;
 			gameClear = false;
@@ -183,17 +183,26 @@ void WindowManager::HandleEvent()
 		default:
 			break;
 		}
+
 	}
 }
 
 void WindowManager::Update()
 {
 	// 승패 판정
-	if (mergedTile == 2048 && gameEnd == false) {
+	if (mergedTile == 2048 && gameEnd == false) //게임 클리어
+	{
 		cout << "Game Clear" << endl;
 		gameEnd = true;
 		gameClear = true;
 	}
+	else if(gamelogic::CheckGameOver() && gameEnd == false) //게임 오버
+	{
+		cout << "Game Over" << endl;
+		gameEnd = true; 
+		gameClear = false;
+	}
+
 }
 
 void WindowManager::Render()
@@ -219,7 +228,7 @@ void WindowManager::Render()
 		}
 		else
 		{
-			endText = new Text("GameOver");
+			endText = new Text("Game Over");
 		}
 		
 		endText->Render();

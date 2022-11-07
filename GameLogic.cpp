@@ -8,14 +8,13 @@ eTileValue tileValue[MATRIX_SIZE][MATRIX_SIZE];
 int tileValueCnt = 0; //현재 몇개의 타일에 값이 있는지(=타일이 가득 찼는지) 확인. 게임오버 여부 체크에 사용.
 int isMergedCnt = 0; //머지 할 수 있는 타일이 있는지 여부 확인. 게임오버 여부 체크에 사용.
 
-
 void gamelogic::Initialize()
 {
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			tileValue[row][column] = eTileValue::Tile0;
+			tileValue[row][column] = eTileValue::Tile1;
 		}
 	}
 
@@ -29,13 +28,13 @@ void gamelogic::CreateNewTile()
 	unsigned int row = rand() % MATRIX_SIZE;
 	unsigned int column = rand() % MATRIX_SIZE;
 
-	while (tileValue[row][column] != eTileValue::Tile0)
+	while (tileValue[row][column] != eTileValue::Tile1)
 	{
 		row = rand() % MATRIX_SIZE;
 		column = rand() % MATRIX_SIZE;
 	}
 
-	tileValue[row][column] = eTileValue::Tile2;
+	tileValue[row][column] = eTileValue::Tile2048;
 }
 
 void gamelogic::Rotate90()
@@ -67,7 +66,7 @@ int gamelogic::Sort()
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			newTileValue[row][column] = eTileValue::Tile0; 
+			newTileValue[row][column] = eTileValue::Tile1; 
 		}
 	}
 	// done = true;
@@ -78,7 +77,7 @@ int gamelogic::Sort()
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
 
-			if (tileValue[row][column] != eTileValue::Tile0)
+			if (tileValue[row][column] != eTileValue::Tile1)
 			{
 				newTileValue[row][count] = tileValue[row][column];
 
@@ -97,7 +96,8 @@ int gamelogic::Sort()
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			if (tileValue[row][column] != newTileValue[row][column]) {
+			if (tileValue[row][column] != newTileValue[row][column])
+			{
 				tileValue[row][column] = newTileValue[row][column];
 				movedCnt++;
 			}
@@ -109,62 +109,68 @@ int gamelogic::Sort()
 
 int gamelogic::Merge()
 {
-	int mergedCnt = 0;		// 타일 합쳐진 횟수. Merg()의 리턴값.
-	bool is2048 = false;	// 합쳐진 타일이 2048 타일인지 확인.
+	int createdTile = -1;		// 타일 합쳐진 횟수. Merge()의 리턴값.
+	bool is0 = false;		// 합쳐진 타일이 0 타일인지 확인.
 
-	// done = false
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
 		for (int column = 0; column < MATRIX_SIZE - 1; column++)
 		{
-			if (tileValue[row][column] == tileValue[row][column + 1] && tileValue[row][column] != eTileValue::Tile0)
+			if (tileValue[row][column] == tileValue[row][column + 1] && tileValue[row][column] != eTileValue::Tile1)
 			{
 				switch (tileValue[row][column])
 				{
-				case eTileValue::Tile2:
-					tileValue[row][column] = eTileValue::Tile4;
-					break;
-				case eTileValue::Tile4:
-					tileValue[row][column] = eTileValue::Tile8;
-					break;
-				case eTileValue::Tile8:
-					tileValue[row][column] = eTileValue::Tile16;
-					break;
-				case eTileValue::Tile16:
-					tileValue[row][column] = eTileValue::Tile32;
-					break;
-				case eTileValue::Tile32:
-					tileValue[row][column] = eTileValue::Tile64;
-					break;
-				case eTileValue::Tile64:
-					tileValue[row][column] = eTileValue::Tile128;
-					break;
-				case eTileValue::Tile128:
-					tileValue[row][column] = eTileValue::Tile256;
-					break;
-				case eTileValue::Tile256:
-					tileValue[row][column] = eTileValue::Tile512;
-					break;
-				case eTileValue::Tile512:
+				case eTileValue::Tile2048:
 					tileValue[row][column] = eTileValue::Tile1024;
 					break;
 				case eTileValue::Tile1024:
-					tileValue[row][column] = eTileValue::Tile2048;
-					is2048 = true;
+					tileValue[row][column] = eTileValue::Tile512;
+					break;
+				case eTileValue::Tile512:
+					tileValue[row][column] = eTileValue::Tile256;
+					break;
+				case eTileValue::Tile256:
+					tileValue[row][column] = eTileValue::Tile128;
+					break;
+				case eTileValue::Tile128:
+					tileValue[row][column] = eTileValue::Tile64;
+					break;
+				case eTileValue::Tile64:
+					tileValue[row][column] = eTileValue::Tile32;
+					break;
+				case eTileValue::Tile32:
+					tileValue[row][column] = eTileValue::Tile16;
+					break;
+				case eTileValue::Tile16:
+					tileValue[row][column] = eTileValue::Tile8;
+					break;
+				case eTileValue::Tile8:
+					tileValue[row][column] = eTileValue::Tile4;
+					break;
+				case eTileValue::Tile4:
+					tileValue[row][column] = eTileValue::Tile2;
+					break;
+				case eTileValue::Tile2:
+					tileValue[row][column] = eTileValue::Tile0;
+					is0 = true;
 					break;
 				default:
 					break;
 				}
-				tileValue[row][column+1] = eTileValue::Tile0;
-				mergedCnt++;
+				tileValue[row][column+1] = eTileValue::Tile1;
+				createdTile = (int)tileValue[row][column];
 				totalScore += (unsigned int)tileValue[row][column];
 				// done = true;
 			}
 		}
 	}
-	if (is2048) { mergedCnt = 2048; }
 
-	return mergedCnt;
+	if (is0)
+	{
+		createdTile = 0;
+	}
+
+	return createdTile;
 }
 
 void gamelogic::PrintTileValueMatrix()
@@ -189,7 +195,8 @@ bool gamelogic::CheckGameOver()
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			if (tileValue[row][column] != eTileValue::Tile0) //타일 안에 0이 아닌 값이 있으면(= 비어있지 않으면) 카운트 늘려주기 
+			//타일 안에 1이 아닌 값이 있으면(= 비어있지 않으면) 카운트 늘려주기 
+			if (tileValue[row][column] != eTileValue::Tile1) 
 			{
 				tileValueCnt++; 
 			}
@@ -213,9 +220,8 @@ bool gamelogic::CheckGameOver()
 	std::cout << "isMergedCnt: " << isMergedCnt << std::endl;  //0 (=머지 할 수 없음) 으로 출력되면 게임오버. 
 	*/
 
-	if (tileValueCnt == MATRIX_SIZE * MATRIX_SIZE&& isMergedCnt == 0) //타일이 꽉 찼고, 머지할 수 있는 요소도 없으면
+	if (tileValueCnt == MATRIX_SIZE * MATRIX_SIZE && isMergedCnt == 0) //타일이 꽉 찼고, 머지할 수 있는 요소도 없으면
 	{
-
 		return true; //게임 오버
 	}
 	else //아니면

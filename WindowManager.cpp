@@ -28,7 +28,7 @@ Text* endText;
 bool gameEnd = false;
 bool gameClear = false;
 
-int mergedTile = 0;	// GameLogic::Merge에서 반환값을 받음. 머지 여부 및 2048 타일 생성 확인에 사용.
+int mergedTile = -1;	// GameLogic::Merge에서 반환값을 받음. 머지 여부 및 2048 타일 생성 확인에 사용.
 
 WindowManager::WindowManager()
 {
@@ -113,17 +113,23 @@ void WindowManager::HandleEvent()
 	}
 	else if (event.type == SDL_KEYUP && gameEnd == false)
 	{
+		//임의의 키 눌렀을 시 승리/패배 이벤트 발생. 실제 게임에서 이벤트 발생시키는 코드는 update에 있음
 		switch (event.key.keysym.sym)
-		{//임의의 키 눌렀을 시 승리/패배 이벤트 발생. 실제 게임에서 이벤트 발생시키는 코드는 update에 있음
+		{
 		case SDLK_1: //1키 입력시 게임 클리어
 			cout << "Game Clear" << endl;
 			gameEnd = true;
 			gameClear = true;
 			break;
+
 		case SDLK_2: //2키 입력시 게임 오버 
 			cout << "Game Over" << endl;
 			gameEnd = true;
 			gameClear = false;
+			break;
+
+		case SDLK_SPACE:
+			// 뒤로 되돌리기
 			break;
 
 		case SDLK_UP:
@@ -140,6 +146,7 @@ void WindowManager::HandleEvent()
 				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
+
 		case SDLK_DOWN:
 			cout << "KeyUP: Down" << endl;
 			gamelogic::Rotate90();
@@ -154,6 +161,7 @@ void WindowManager::HandleEvent()
 				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
+
 		case SDLK_LEFT:
 			cout << "KeyUP: Left" << endl;
 			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
@@ -166,6 +174,7 @@ void WindowManager::HandleEvent()
 				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
+
 		case SDLK_RIGHT:
 			cout << "KeyUP: Right" << endl;
 			gamelogic::Rotate90(); gamelogic::Rotate90();
@@ -180,6 +189,7 @@ void WindowManager::HandleEvent()
 				gamelogic::CreateNewTile();
 			scoreText->Update();
 			break;
+
 		default:
 			break;
 		}
@@ -190,7 +200,7 @@ void WindowManager::HandleEvent()
 void WindowManager::Update()
 {
 	// 승패 판정
-	if (mergedTile == 2048 && gameEnd == false) //게임 클리어
+	if (mergedTile == 0 && gameEnd == false) //게임 클리어
 	{
 		cout << "Game Clear" << endl;
 		gameEnd = true;

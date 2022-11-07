@@ -46,6 +46,7 @@ void Tile::DrawTile(eTileValue value)
 	switch (value)
 	{
 	case eTileValue::Tile0:
+	case eTileValue::Tile1:
 		TextureManager::Draw(tile0, srcRect, destRect);
 		break;
 	case eTileValue::Tile2:

@@ -113,6 +113,7 @@ void WindowManager::HandleEvent()
 	}
 	else if (event.type == SDL_KEYUP && gameEnd == false)
 	{
+		cout << "\nbefore " << movedCnt << endl;
 		//임의의 키 눌렀을 시 승리/패배 이벤트 발생. 실제 게임에서 이벤트 발생시키는 코드는 update에 있음
 		switch (event.key.keysym.sym)
 		{
@@ -142,9 +143,10 @@ void WindowManager::HandleEvent()
 			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 			gamelogic::Rotate90();
 
-			if (movedCnt)
+			if (movedCnt != -1)
 				gamelogic::CreateNewTile();
 			scoreText->Update();
+			cout << "UP " << movedCnt << endl;
 			break;
 
 		case SDLK_DOWN:
@@ -157,9 +159,10 @@ void WindowManager::HandleEvent()
 			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
 
-			if (movedCnt)
+			if (movedCnt != -1)
 				gamelogic::CreateNewTile();
 			scoreText->Update();
+			cout << "DOWN " << movedCnt << endl;
 			break;
 
 		case SDLK_LEFT:
@@ -170,9 +173,10 @@ void WindowManager::HandleEvent()
 			// done
 			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 
-			if (movedCnt)
+			if (movedCnt != -1)
 				gamelogic::CreateNewTile();
 			scoreText->Update();
+			cout << "LEFT " << movedCnt << endl;
 			break;
 
 		case SDLK_RIGHT:
@@ -185,15 +189,16 @@ void WindowManager::HandleEvent()
 			movedCnt += gamelogic::Sort();	// merge 후 빈 공간 채우기 위해서 한 번 더 sort
 			gamelogic::Rotate90(); gamelogic::Rotate90();
 
-			if (movedCnt)
+			if (movedCnt != -1)
 				gamelogic::CreateNewTile();
 			scoreText->Update();
+			cout << "RIGHT " << movedCnt << endl;
 			break;
 
 		default:
 			break;
 		}
-
+		cout << "after " << movedCnt << endl;
 	}
 }
 

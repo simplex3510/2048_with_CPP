@@ -129,8 +129,14 @@ void WindowManager::HandleEvent()
 			gameClear = false;
 			break;
 
+		// 512 이상 타일 제거
+		case SDLK_BACKSPACE:
+			gamelogic::DeleteBigNumber();
+			break;
+
+		// 뒤로 되돌리기
 		case SDLK_SPACE:
-			// 뒤로 되돌리기
+
 			break;
 
 		case SDLK_UP:

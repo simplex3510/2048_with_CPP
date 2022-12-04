@@ -229,3 +229,17 @@ bool gamelogic::CheckGameOver()
 		return false; //계속 진행 
 	}
 }
+
+void gamelogic::DeleteBigNumber()
+{
+	for (int row = 0; row < MATRIX_SIZE; row++)
+	{
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			if (tileValue[row][column] >= eTileValue::Tile512)
+			{
+				tileValue[row][column] = eTileValue::Tile1;
+			}
+		}
+	}
+}

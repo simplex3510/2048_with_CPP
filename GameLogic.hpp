@@ -26,4 +26,6 @@ namespace gamelogic
 	void PrintTileValueMatrix();
 
 	bool CheckGameOver(); 
+
+	void DeleteBigNumber();
 }

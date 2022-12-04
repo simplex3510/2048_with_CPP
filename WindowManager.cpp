@@ -134,6 +134,7 @@ void WindowManager::HandleEvent()
 
 		// 512 이상 타일 제거
 		case SDLK_BACKSPACE:
+			gamelogic::Revert(false);	// 타일 상태 저장
 			gamelogic::DeleteBigNumber();
 			break;
 

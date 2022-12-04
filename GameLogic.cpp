@@ -25,6 +25,7 @@ void gamelogic::Initialize()
 
 	CreateNewTile();
 	CreateNewTile();
+	Revert(false);	// B 누르는 이벤트가 가장 먼저 발생했을 때 대비
 }
 
 void gamelogic::CreateNewTile()
@@ -237,15 +238,25 @@ bool gamelogic::CheckGameOver()
 
 void gamelogic::DeleteBigNumber()
 {
+	bool isEmpty = true;
 	for (int row = 0; row < MATRIX_SIZE; row++)
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			if (tileValue[row][column] >= eTileValue::Tile512)
+			if (tileValue[row][column] >= eTileValue::Tile512)	// 512 이상 타일 삭제
 			{
 				tileValue[row][column] = eTileValue::Tile1;
 			}
+			else if (tileValue[row][column] != eTileValue::Tile1) {	// 512보다 작은 타일 있으면 안 비니까 isEmpty false
+				isEmpty = false;
+			}
 		}
+	}
+
+	// 타일이 없을 때 2048 타일 생성
+	if (isEmpty) {
+		CreateNewTile();
+		CreateNewTile();
 	}
 }
 

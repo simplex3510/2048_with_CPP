@@ -59,6 +59,10 @@ void Text::Update()
 	{
 		destRect.x = 715;
 	}
+	else if (scoreText / 1000000 == 0)
+	{
+		destRect.x = 700;
+	}
 
 	textTexture = TextureManager::LoadTextTexture(textFont, std::to_string(scoreText).c_str(), &textFontColor, &destRect);
 }

@@ -7,6 +7,9 @@
 #define SCORE_WIDTH  756
 #define SCORE_HEIGHT 400
 
+#define REVERT_WIDTH 150
+#define REVERT_HEIGHT 40
+
 class Background : public GameObject
 {
 public:
@@ -54,6 +57,27 @@ public:
 		destRect.y = yPos;
 	}
 	~ScoreBackground();
+
+private:
+
+};
+
+class RevertBox : public Background
+{
+public:
+	RevertBox(const char* textureSheet, int xPos, int yPos, int width, int height) : Background(textureSheet, xPos, yPos, width, height)
+	{
+		srcRect.h = SCORE_HEIGHT;
+		srcRect.w = SCORE_WIDTH;
+		srcRect.x = 0;
+		srcRect.y = 0;
+
+		destRect.h = height;
+		destRect.w = width;
+		destRect.x = xPos;
+		destRect.y = yPos;
+	}
+	~RevertBox();
 
 private:
 

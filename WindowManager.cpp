@@ -17,6 +17,7 @@ SDL_Renderer* WindowManager::renderer = nullptr;
 GameBackground* gameBackground;
 ScoreBackground* bestBackground;
 ScoreBackground* scoreBackground;
+RevertBox* revertBox;
 EndScreen* endScreen;
 
 TileMatrix* tileMatrix;
@@ -94,6 +95,8 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 	gameBackground = new GameBackground("Assets/GameBackground.png", 410, 220, 460, 460);
 	bestBackground = new ScoreBackground("Assets/BestBackground.png", 400, 50, 230, 100);
 	scoreBackground = new ScoreBackground("Assets/ScoreBackground.png", 650, 50, 230, 100);
+
+	revertBox = new RevertBox("Assets/RevertBox.png", 565, 165, 150, 40);
 	
 	endScreen = new EndScreen("Assets/EndScreen.png");
 
@@ -134,6 +137,11 @@ void WindowManager::HandleEvent()
 			gamelogic::DeleteBigNumber();
 			break;
 
+		// B 누르면 이전 상태로
+		case SDLK_b:
+			gamelogic::Revert(true);	// 이전 상태로 돌리기
+			break;
+
 		// 뒤로 되돌리기
 		case SDLK_SPACE:
 
@@ -141,6 +149,7 @@ void WindowManager::HandleEvent()
 
 		case SDLK_UP:
 			cout << "KeyUP: Up" << endl;
+			gamelogic::Revert(false);	// 타일 상태 저장
 			gamelogic::Rotate90(); gamelogic::Rotate90(); gamelogic::Rotate90();
 			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
 			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
@@ -157,6 +166,7 @@ void WindowManager::HandleEvent()
 
 		case SDLK_DOWN:
 			cout << "KeyUP: Down" << endl;
+			gamelogic::Revert(false);	// 타일 상태 저장
 			gamelogic::Rotate90();
 			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
 			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
@@ -173,6 +183,7 @@ void WindowManager::HandleEvent()
 
 		case SDLK_LEFT:
 			cout << "KeyUP: Left" << endl;
+			gamelogic::Revert(false);	// 타일 상태 저장
 			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
 			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
 			movedCnt += mergedTile;			// merge도 이동에 포함
@@ -187,6 +198,7 @@ void WindowManager::HandleEvent()
 
 		case SDLK_RIGHT:
 			cout << "KeyUP: Right" << endl;
+			gamelogic::Revert(false);	// 타일 상태 저장
 			gamelogic::Rotate90(); gamelogic::Rotate90();
 			movedCnt += gamelogic::Sort();	// merge 전 타일 한 쪽으로 몰기
 			mergedTile = gamelogic::Merge();	// WindowManager::Update()에서 2048 타일 생성을 통한 승리 판정을 위해 따로 저장
@@ -233,6 +245,7 @@ void WindowManager::Render()
 	gameBackground->Render();
 	bestBackground->Render();
 	scoreBackground->Render();
+	revertBox->Render();
 
 	tileMatrix->DrawTile();
 

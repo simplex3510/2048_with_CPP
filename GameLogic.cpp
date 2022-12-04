@@ -3,7 +3,8 @@
 using namespace gamelogic;
 
 int totalScore = 0;
-eTileValue tileValue[MATRIX_SIZE][MATRIX_SIZE];
+eTileValue tileValue[MATRIX_SIZE][MATRIX_SIZE];		// 현재 타일 상태
+eTileValue preTileValue[MATRIX_SIZE][MATRIX_SIZE];	// 이전 타일 상태
 
 int tileValueCnt = 0; //현재 몇개의 타일에 값이 있는지(=타일이 가득 찼는지) 확인. 게임오버 여부 체크에 사용.
 int isMergedCnt = 0; //머지 할 수 있는 타일이 있는지 여부 확인. 게임오버 여부 체크에 사용.
@@ -14,7 +15,11 @@ void gamelogic::Initialize()
 	{
 		for (int column = 0; column < MATRIX_SIZE; column++)
 		{
-			tileValue[row][column] = eTileValue::Tile1;
+			tileValue[row][column] = eTileValue::Tile1;		// 현재 타일 상태 초기화
+		}
+		for (int column = 0; column < MATRIX_SIZE; column++)
+		{
+			preTileValue[row][column] = eTileValue::Tile1;	// 이전 타일 상태 초기화
 		}
 	}
 
@@ -239,6 +244,28 @@ void gamelogic::DeleteBigNumber()
 			if (tileValue[row][column] >= eTileValue::Tile512)
 			{
 				tileValue[row][column] = eTileValue::Tile1;
+			}
+		}
+	}
+}
+
+// 이전 상태로 돌리기 준비, 수행
+void gamelogic::Revert(bool change) {
+	if (change) {
+		for (int row = 0; row < MATRIX_SIZE; row++)
+		{
+			for (int column = 0; column < MATRIX_SIZE; column++)
+			{
+				tileValue[row][column] = preTileValue[row][column];	// 현재 타일을 이전 상태로 돌리기
+			}
+		}
+	}
+	else {
+		for (int row = 0; row < MATRIX_SIZE; row++)
+		{
+			for (int column = 0; column < MATRIX_SIZE; column++)
+			{
+				preTileValue[row][column] = tileValue[row][column];	// 현재 타일 저장
 			}
 		}
 	}

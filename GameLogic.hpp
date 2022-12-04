@@ -28,4 +28,6 @@ namespace gamelogic
 	bool CheckGameOver(); 
 
 	void DeleteBigNumber();
+
+	void Revert(bool change);
 }

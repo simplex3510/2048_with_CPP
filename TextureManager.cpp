@@ -20,7 +20,8 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName)
 
 SDL_Texture* TextureManager::LoadTextTexture(TTF_Font* textFont, const char* text, SDL_Color* fontColor, SDL_Rect* destRect)
 {
-	SDL_Surface* tempSurface = TTF_RenderText_Solid(textFont, text, *fontColor);
+	//SDL_Surface* tempSurface = TTF_RenderText_Solid(textFont, text, *fontColor);
+	SDL_Surface* tempSurface = TTF_RenderText_Blended_Wrapped(textFont, text, *fontColor, 400); //줄바꿈까지 포함
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(WindowManager::renderer, tempSurface);
 
 	destRect->h = tempSurface->h;

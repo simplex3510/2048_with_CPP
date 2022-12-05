@@ -22,18 +22,23 @@ EndScreen* endScreen;
 
 TileMatrix* tileMatrix;
 
+Text* tutorialTextL;
+Text* tutorialTextR;
 Text* scoreText;
 Text* bestText;
 Text* endText;
 
+bool isTutorial = true;
 bool gameEnd = false;
 bool gameClear = false;
 
 int mergedTile = -1;	// GameLogic::Merge에서 반환값을 받음. 머지 여부 및 2048 타일 생성 확인에 사용.
 
+
+
 WindowManager::WindowManager()
 {
-
+	
 }
 
 WindowManager::~WindowManager()
@@ -101,6 +106,13 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 	endScreen = new EndScreen("Assets/EndScreen.png");
 
 	tileMatrix = new TileMatrix();
+	
+	//튜토리얼 텍스트 설정
+	tutorialTextL = new Text("Use your arrow keys to move the tiles.\nTiles with the same number merge into one when they touch.\nAdd them up to \nreach 1!\n\nex) 2048 + 2048 = 1024..", false);
+	tutorialTextR = new Text("BackSpace key : \nDelete Big Number Tile(More than 512)\n\nb key: \nRevert Rrevious Turn\n\ne key: \nGame Start", true);
+	cout << endl << "Tutorial.. press to e key" << endl;
+
+	
 }
 
 void WindowManager::HandleEvent()
@@ -109,12 +121,22 @@ void WindowManager::HandleEvent()
 	SDL_PollEvent(&event);
 
 	int movedCnt = 0;	// 타일 이동 횟수와 머지 횟수 (합쳐질 때 다시 정렬할 필요가 없는 경우도 있어서 머지 횟수도 따로 더해줌)
+	
+	
+	//튜토리얼 중일떄는 true, 끝나고 다음 단계 중부터는 false로 나타내기
+	//e 키 누르면 텍스트 삭제 + bool 변수 false로 나타내서 여기 구문 실행 안되게 하기
+	if (event.key.keysym.sym == SDLK_e && isTutorial == true) {
+		
+		isTutorial = false;
+		delete tutorialTextL;
+		delete tutorialTextR;
+	}
 
-	if (event.type == SDL_QUIT) //윈도우창 닫으면 SDL_QUIT 이벤트 발생
+	if (event.type == SDL_QUIT && isTutorial == false) //윈도우창 닫으면 SDL_QUIT 이벤트 발생
 	{
 		isRunning = false;
 	}
-	else if (event.type == SDL_KEYUP && gameEnd == false)
+	else if (event.type == SDL_KEYUP && isTutorial == false && gameEnd == false)
 	{
 		cout << "\nbefore " << movedCnt << endl;
 		//임의의 키 눌렀을 시 승리/패배 이벤트 발생. 실제 게임에서 이벤트 발생시키는 코드는 update에 있음
@@ -252,6 +274,11 @@ void WindowManager::Render()
 
 	bestText->Render();
 	scoreText->Render();
+
+	if (isTutorial == true) { 
+		tutorialTextL->Render();
+		tutorialTextR->Render();
+	}
 
 	if (gameEnd == true)
 	{

@@ -25,6 +25,8 @@ public:
 
 	bool Run();
 
+	
+
 private:
 	bool isRunning;
 	SDL_Window* window;

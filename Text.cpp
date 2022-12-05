@@ -20,17 +20,44 @@ Text::Text(int xPos, int yPos)
 
 Text::Text(const char* endText)
 {
-	scoreText = 0;
+	
+
 
 	textFont = TTF_OpenFont("Assets/Verdana_Bold.ttf", 30);
 	textFontColor = { 255, 255, 255, 255 };
 
 	textTexture = TextureManager::LoadTextTexture(textFont, endText, &textFontColor, &destRect);
 
-	destRect.x = 640;
+	destRect.x = 550;
 	destRect.y = 360;
 }
 
+Text::Text(const char* tutorText, bool directFlag) {
+
+	
+
+	//false: 왼쪽 빈공간에 출력 / true: 오른쪽 빈공간에 출력
+	if (directFlag == false) {
+		textFont = TTF_OpenFont("Assets/Verdana_Bold.ttf", 30); 
+		textFontColor = { 187, 173, 160, 255 };
+
+		textTexture = TextureManager::LoadTextTexture(textFont, tutorText, &textFontColor, &destRect);
+
+		destRect.x = 15;
+		destRect.y = 150;
+	}
+	else{
+		textFont = TTF_OpenFont("Assets/Verdana_Bold.ttf", 30);
+		textFontColor = { 187, 173, 160, 255 };
+
+		textTexture = TextureManager::LoadTextTexture(textFont, tutorText, &textFontColor, &destRect);
+		
+		destRect.x = 900;
+		destRect.y = 150;
+	}
+	
+
+}
 Text::~Text()
 {
 }
@@ -70,4 +97,7 @@ void Text::Update()
 void Text::Render()
 {
 	SDL_RenderCopy(WindowManager::renderer, textTexture, NULL, &destRect);
+
+	
+	
 }

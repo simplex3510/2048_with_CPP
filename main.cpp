@@ -17,7 +17,6 @@ int main(int argc, char* argv[])
 	Uint32 frameStart;
 	int frameTime;
 
-
 	while (windowManager->Run())
 	{
 		frameStart = SDL_GetTicks();

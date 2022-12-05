@@ -1,13 +1,14 @@
 #include "Text.hpp"
 #include "GameLogic.hpp"
-
+#include "BestScoreManager.hpp"
 using namespace std;
 
 // 준행이가 파일 입출력으로 scoreText에 읽어와서 생성자 만들기 + 만,천,백 등 단위 위치 잡기
+extern int cuBest;
 
 Text::Text(int xPos, int yPos)
 {
-	scoreText = 0;
+	scoreText = BestSc();
 
 	textFont = TTF_OpenFont("Assets/Verdana_Bold.ttf", 30);
 	textFontColor = { 255, 255, 255, 255 };
@@ -20,8 +21,6 @@ Text::Text(int xPos, int yPos)
 
 Text::Text(const char* endText)
 {
-	
-
 
 	textFont = TTF_OpenFont("Assets/Verdana_Bold.ttf", 30);
 	textFontColor = { 255, 255, 255, 255 };

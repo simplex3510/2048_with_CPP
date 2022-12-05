@@ -66,9 +66,6 @@
     <ClCompile Include="EndScreen.cpp">
       <Filter>소스 파일\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="BestScoreManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SingletonBase.hpp">
@@ -103,9 +100,6 @@
     </ClInclude>
     <ClInclude Include="EndScreen.hpp">
       <Filter>헤더 파일\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BestScoreManager.hpp">
-      <Filter>헤더 파일\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

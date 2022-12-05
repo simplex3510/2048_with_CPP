@@ -1,6 +1,5 @@
 #include "WindowManager.hpp"
 #include "TextureManager.hpp"
-#include "BestScoreManager.hpp"
 
 #include "Background.hpp"
 #include "EndScreen.hpp"
@@ -249,14 +248,12 @@ void WindowManager::Update()
 	// 승패 판정
 	if (mergedTile == 0 && gameEnd == false) //게임 클리어
 	{
-		BestScore(totalScore);
 		cout << "Game Clear" << endl;
 		gameEnd = true;
 		gameClear = true;
 	}
 	else if(gamelogic::CheckGameOver() && gameEnd == false) //게임 오버
 	{
-		BestScore(totalScore);
 		cout << "Game Over" << endl;
 		gameEnd = true; 
 		gameClear = false;

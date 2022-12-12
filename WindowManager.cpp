@@ -84,8 +84,8 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 
 	if (TTF_Init() == 0)
 	{
-		bestText = new Text(506, 100);
-		scoreText = new Text(750, 100);
+		bestText = new Text(450, 100, true);
+		scoreText = new Text(750, 100, false);
 		if (scoreText != nullptr && bestText != nullptr)
 		{
 			cout << "Text Font Setting Complete" << endl;

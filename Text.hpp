@@ -8,7 +8,7 @@
 class Text
 {
 public:
-	Text(int xPos, int yPos);
+	Text(int xPos, int yPos, bool isBestScore);
 	Text(const char* endText);
 	Text(const char* tutorText, bool isTutorial); //튜토리얼 용 텍스트 출력
 	~Text();

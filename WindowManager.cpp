@@ -18,7 +18,6 @@ SDL_Renderer* WindowManager::renderer = nullptr;
 GameBackground* gameBackground;
 ScoreBackground* bestBackground;
 ScoreBackground* scoreBackground;
-RevertBox* revertBox;
 EndScreen* endScreen;
 
 TileMatrix* tileMatrix;
@@ -33,13 +32,18 @@ bool isTutorial = true;
 bool gameEnd = false;
 bool gameClear = false;
 
+int thanos = 5;			// 백스페이스로 512 이상 타일 지울 수 있는 횟수를 5회로 제한함.
 int mergedTile = -1;	// GameLogic::Merge에서 반환값을 받음. 머지 여부 및 2048 타일 생성 확인에 사용.
 
 
 
 WindowManager::WindowManager()
 {
-	
+	isRunning = false;
+	isTutorial = true;
+	gameEnd = false;
+	gameClear = false;
+	thanos = 5;
 }
 
 WindowManager::~WindowManager()
@@ -101,8 +105,6 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 	gameBackground = new GameBackground("Assets/GameBackground.png", 410, 220, 460, 460);
 	bestBackground = new ScoreBackground("Assets/BestBackground.png", 400, 50, 230, 100);
 	scoreBackground = new ScoreBackground("Assets/ScoreBackground.png", 650, 50, 230, 100);
-
-	revertBox = new RevertBox("Assets/RevertBox.png", 565, 165, 150, 40);
 	
 	endScreen = new EndScreen("Assets/EndScreen.png");
 
@@ -110,7 +112,7 @@ void WindowManager::Initialize(const char* title, int xPos, int yPos, int width,
 	
 	//튜토리얼 텍스트 설정
 	tutorialTextL = new Text("Use your arrow keys to move the tiles.\nTiles with the same number merge into one when they touch.\nAdd them up to \nreach 1!\n\nex) 2048 + 2048 = 1024..", false);
-	tutorialTextR = new Text("BackSpace key : \nDelete Big Number Tile(More than 512)\n\nb key: \nRevert Rrevious Turn\n\ne key: \nGame Start", true);
+	tutorialTextR = new Text("BackSpace key : \nDelete Big Number Tile(More than 512)\nRemember you have only 5 chances.\n\nb key: \nRevert Rrevious Turn\n\ne key: \nGame Start", true);
 	cout << endl << "Tutorial.. press to e key" << endl;
 
 	
@@ -157,8 +159,11 @@ void WindowManager::HandleEvent()
 
 		// 512 이상 타일 제거
 		case SDLK_BACKSPACE:
-			gamelogic::Revert(false);	// 타일 상태 저장
-			gamelogic::DeleteBigNumber();
+			if (thanos > 0) {
+				thanos--;
+				gamelogic::Revert(false);	// 타일 상태 저장
+				gamelogic::DeleteBigNumber();
+			}
 			break;
 
 		// B 누르면 이전 상태로
@@ -271,7 +276,6 @@ void WindowManager::Render()
 	gameBackground->Render();
 	bestBackground->Render();
 	scoreBackground->Render();
-	revertBox->Render();
 
 	tileMatrix->DrawTile();
 

@@ -173,7 +173,7 @@ int gamelogic::Merge()
 
 	if (is0)
 	{
-		createdTile = 1;
+		createdTile = 0;
 	}
 
 	return createdTile;
